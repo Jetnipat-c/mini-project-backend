@@ -1,9 +1,13 @@
 import express from "express";
 import bcrypt from "bcrypt";
+import passport from "passport";
 import { Database } from "../database/database.js";
+import { env } from "../constants/environment.js";
 
 const authRouter = express.Router();
 const db = new Database();
+
+authRouter.use(express.urlencoded({ extended: false }));
 
 authRouter.post("/login", (req, res, next) => {
   const { username, password } = req.body;
@@ -25,8 +29,7 @@ authRouter.post("/register", async (req, res, next) => {
   }
 
   const raw = { username, password, email };
-  const SALT_ROUND = 10;
-  const hash = await bcrypt.hash(password, SALT_ROUND);
+  const hash = await bcrypt.hash(password, env.SALT_ROUND);
   const data = { ...raw, password: hash };
   const createUser = await db.create(data);
   return res.status(200).json(createUser);

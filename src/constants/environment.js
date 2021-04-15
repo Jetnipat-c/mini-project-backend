@@ -1,6 +1,5 @@
 export const env = {
   PORT: 6969,
-  database:{
-
-  }
+  SALT_ROUND:10,
+  SECRET:"your_jwt_secret"
 };

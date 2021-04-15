@@ -5,7 +5,7 @@ let user = {
     {
       id: 1,
       username: "frame",
-      password: "11111",
+      password: "$2b$10$m03Rv28QeXo480gEOPEYoOL/0Nh0P7z/kCptGYdH2JLd6UwpGxrGK",
       email: "teeraphat123@hotmail.com",
     },
   ],
