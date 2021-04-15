@@ -3,7 +3,7 @@ import passport from "passport";
 const authRouter = express.Router();
 authRouter.use(express.json());
 authRouter.use(express.urlencoded({ extended: false }));
-const db = require("../public/database.js");
+// const db = require("../public/database.js");
 authRouter
   .get("/login", (req, res, next) => {
     passport.authenticate("local", { session: false }, (err, user, info) => {

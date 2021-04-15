@@ -1,9 +1,18 @@
-import express from 'express';
+import express from "express";
+import { UserService } from "../services/UserService.js";
+
 const userRouter = express.Router();
+const userService = new UserService();
 
-userRouter.get("",(req,res,next)=>{
-    console.log("Into User")
-    res.send("55555")
-})
+userRouter.post("/", (req, res, next) => {
+  userService
+    .createUser(req.body)
+    .then((result) => {
+      res.send(result);
+    })
+    .catch((err) => {
+      next(err);
+    });
+});
 
-export default userRouter
+export default userRouter;
