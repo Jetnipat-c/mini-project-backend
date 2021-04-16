@@ -8,4 +8,4 @@ echo "STEP 3 : Push to dockerhub"
 docker push alonecheer/miniproject:dev
 
 echo "STEP 4 : Finish"
-start chrome https://hub.docker.com/?ref=login
+start msedge https://hub.docker.com/?ref=login

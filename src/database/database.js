@@ -1,6 +1,5 @@
 import bcrypt from "bcrypt";
-
-let user = {
+export let user = {
   users: [
     {
       id: 1,
@@ -42,5 +41,17 @@ export class Database {
     };
     await user.users.push(newData);
     return user.users[user.users.length - 1];
+  }
+
+  async checkExistingUser(username) {
+    console.log(username);
+    return user.users.findIndex((item) => item.username === username);
+  }
+
+  async isValidUser(username, password) {
+    console.log("isValidUser", username, password);
+    const index = user.users.findIndex((item) => item.username === username);
+    console.log(index);
+    return await bcrypt.compare(password, user.users[index].password);
   }
 }
