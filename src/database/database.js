@@ -19,6 +19,7 @@ const types = {
 export let transaction = {
   transactions: [
     {
+      tranID: 1,
       userID: 1,
       tranDate: "4/19/2021",
       tranNote: "ซื้อแกงไตปลา",
@@ -74,15 +75,31 @@ export class Database {
   }
 
    createTransaction = async (userID, tranDate, tranNote, tranType, tranAmount) => {
-     console.log(userID, tranDate, tranNote, tranType, tranAmount)
-     const newData = {
+    const newId = await this.genarateTransactionID(); 
+    console.log(newId);
+    const newData = {
       userID: userID, 
       tranDate: tranDate, 
       tranNote: tranNote, 
       tranType: tranType, 
-      tranAmount:tranAmount
+      tranAmount:tranAmount,
+      tranID: newId
     };
      await transaction.transactions.push(newData)
      return transaction.transactions[transaction.transactions.length-1]
    }
+   
+   async getAllTransaction() {
+    return transaction.transactions;
+  }
+
+  async genarateTransactionID() {
+    const max = Math.max.apply(
+      Math,
+      transaction.transactions.map(function (o) {
+        return +o.tranID;
+      })
+    );
+    return max + 1;
+  }
 }
