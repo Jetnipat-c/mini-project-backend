@@ -6,11 +6,16 @@ const db = new Database();
 authRouter.use(express.urlencoded({ extended: false }));
 
 authRouter.post("/create", async (req, res, next) => {
-  console.log("Transaction con");
   const { userID, tranDate, tranNote, tranType, tranAmount } = req.body;
-  console.log(userID, tranDate, tranNote, tranType, tranAmount);
   let result = await db.createTransaction(userID, tranDate, tranNote, tranType, tranAmount)
-  console.log(result);
-});
+  return res.json(result)
+})
+
+authRouter.get("/getall", async (req,res,next) => {
+    console.log("sdsd")
+    let transaction = await db.getAllTransaction();
+    console.log("transaction", transaction)
+    return res.json(transaction);
+})
 
 export default authRouter;
