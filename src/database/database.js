@@ -10,6 +10,24 @@ export let user = {
   ],
 };
 
+const types = {
+  REVENUE: "revenue",
+  EXPENDITURE: "expenditure"
+}
+
+
+export let transaction = {
+  transactions: [
+    {
+      userID: 1,
+      tranDate: "4/19/2021",
+      tranNote: "ซื้อแกงไตปลา",
+      tranType: types.EXPENDITURE,
+      tranAmount: 40
+    }
+  ]
+}
+
 export class Database {
   async findOne(where) {
     const { username, email } = where;
@@ -54,4 +72,17 @@ export class Database {
     console.log(index);
     return await bcrypt.compare(password, user.users[index].password);
   }
+
+   createTransaction = async (userID, tranDate, tranNote, tranType, tranAmount) => {
+     console.log(userID, tranDate, tranNote, tranType, tranAmount)
+     const newData = {
+      userID: userID, 
+      tranDate: tranDate, 
+      tranNote: tranNote, 
+      tranType: tranType, 
+      tranAmount:tranAmount
+    };
+     await transaction.transactions.push(newData)
+     return transaction.transactions[transaction.transactions.length-1]
+   }
 }
