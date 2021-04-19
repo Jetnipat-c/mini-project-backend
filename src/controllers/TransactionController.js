@@ -1,21 +1,25 @@
 import express from "express";
 import { Database } from "../database/database.js";
-const authRouter = express.Router();
+const transactionRouter = express.Router();
 const db = new Database();
 
-authRouter.use(express.urlencoded({ extended: false }));
+transactionRouter.use(express.urlencoded({ extended: false }));
 
-authRouter.post("/create", async (req, res, next) => {
+transactionRouter.post("/create", async (req, res, next) => {
   const { userID, tranDate, tranNote, tranType, tranAmount } = req.body;
   let result = await db.createTransaction(userID, tranDate, tranNote, tranType, tranAmount)
   return res.json(result)
 })
 
-authRouter.get("/getall", async (req,res,next) => {
-    console.log("sdsd")
+transactionRouter.get("/getall", async (req,res,next) => {
     let transaction = await db.getAllTransaction();
-    console.log("transaction", transaction)
     return res.json(transaction);
 })
 
-export default authRouter;
+
+transactionRouter.put("/update", async (req,res,next) => {
+    let data = req.body
+    let result = await db.findTransaction(data)
+    return res.json(result)
+})
+export default transactionRouter;

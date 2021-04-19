@@ -14,22 +14,22 @@ authRouter.post("/login", (req, res, next) => {
   const { username, password } = req.body;
   let time_exp;
   passport.authenticate("local", { session: false }, (err, user, info) => {
-    console.log("Login: ", req.body, user, err, info);
+    //console.log("Login: ", req.body, user, err, info);
     if (err) return next(err);
     if (user) {
       if (req.body.remember == true) {
-        console.log(" remember true");
+       // console.log(" remember true");
         time_exp = "7d";
       } else time_exp = "1d";
       const token = jwt.sign(user, env.SECRET, {
         expiresIn: time_exp,
       });
-      console.log(" token", token);
+      //console.log(" token", token);
       var decoded = jwt.decode(token);
       //let time = "" + new Date(decoded.exp * 1000);
       let time = new Date(decoded.exp * 1000);
       //let str = time.substring(0, 10);
-      console.log(new Date(decoded.exp * 1000));
+      //console.log(new Date(decoded.exp * 1000));
       res.setHeader(
         "Set-Cookie",
         cookie.serialize("token", token, {

@@ -1,7 +1,7 @@
 import { Database, user } from "../database/database.js";
 const db = new Database();
 let users = user;
-console.log("user >> ", users);
+//console.log("user >> ", users);
 import passport from "passport";
 import passport_jwt from "passport-jwt";
 import passport_local from "passport-local";
@@ -18,16 +18,16 @@ passport.use(
       passwordField: "password",
     },
     async (username, password, cb) => {
-      console.log("User: ", username, password);
+      //console.log("User: ", username, password);
       const index = await db.checkExistingUser(username);
-      console.log("Index: ", index);
+      //console.log("Index: ", index);
       if (
         index !== db.NOT_FOUND &&
         (await db.isValidUser(username, password))
       ) {
-        console.log("asdasd");
+       // console.log("asdasd");
         const { id, username, email } = users.users[index];
-        console.log(" cb : ");
+       // console.log(" cb : ");
         return cb(
           null,
           { id, username, email },
@@ -47,7 +47,7 @@ passport.use(
     (jwtPayload, cb) => {
       try {
         // find the user in db if needed
-        console.log("jwt strategy");
+        //console.log("jwt strategy");
         const index = db.checkExistingUser(jwtPayload.username);
         if (index !== db.NOT_FOUND) {
           // Strip password out
