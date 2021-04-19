@@ -70,6 +70,9 @@ export class Database {
     console.log("isValidUser", username, password);
     const index = user.users.findIndex((item) => item.username === username);
     console.log(index);
+    if( index === -1) {
+      return false
+    }
     return await bcrypt.compare(password, user.users[index].password);
   }
 

@@ -12,13 +12,14 @@ authRouter.use(express.urlencoded({ extended: false }));
 import jwt from "jsonwebtoken";
 authRouter.post("/login", (req, res, next) => {
   const { username, password } = req.body;
+  console.log(username, password)
   let time_exp;
   passport.authenticate("local", { session: false }, (err, user, info) => {
     //console.log("Login: ", req.body, user, err, info);
     if (err) return next(err);
     if (user) {
       if (req.body.remember == true) {
-       // console.log(" remember true");
+        // console.log(" remember true");
         time_exp = "7d";
       } else time_exp = "1d";
       const token = jwt.sign(user, env.SECRET, {
@@ -48,7 +49,6 @@ authRouter.post("/login", (req, res, next) => {
 
 authRouter.post("/register", async (req, res, next) => {
   const { username, password, email } = req.body;
-
   if (!username || !password || !email) {
     return res.status(500).json({ message: "กรุณากรอกข้อมูลให้ครบถ้วน" });
   }
@@ -61,9 +61,13 @@ authRouter.post("/register", async (req, res, next) => {
   }
 
   const raw = { username, password, email };
+  console.log("rew", raw);
   const hash = await bcrypt.hash(password, env.SALT_ROUND);
+  console.log("hash", hash);
   const data = { ...raw, password: hash };
+  console.log("data", data);
   const createUser = await db.create(data);
+  console.log("createUser", createUser);
   return res.status(200).json(createUser);
 });
 
