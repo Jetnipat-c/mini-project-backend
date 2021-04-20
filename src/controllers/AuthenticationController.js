@@ -15,22 +15,18 @@ authRouter.post("/login", (req, res, next) => {
   console.log(username, password)
   let time_exp;
   passport.authenticate("local", { session: false }, (err, user, info) => {
-    //console.log("Login: ", req.body, user, err, info);
+    console.log("Login: ", req.body, user, err, info);
     if (err) return next(err);
     if (user) {
       if (req.body.remember == true) {
-        // console.log(" remember true");
         time_exp = "7d";
       } else time_exp = "1d";
       const token = jwt.sign(user, env.SECRET, {
         expiresIn: time_exp,
       });
-      //console.log(" token", token);
       var decoded = jwt.decode(token);
-      //let time = "" + new Date(decoded.exp * 1000);
       let time = new Date(decoded.exp * 1000);
-      //let str = time.substring(0, 10);
-      //console.log(new Date(decoded.exp * 1000));
+      console.log("Before set cookie : ", token)
       res.setHeader(
         "Set-Cookie",
         cookie.serialize("token", token, {
@@ -41,6 +37,7 @@ authRouter.post("/login", (req, res, next) => {
           path: "/",
         })
       );
+      console.log("Affter set cookie : ")
       res.statusCode = 200;
       return res.json({ user, token });
     } else return res.status(422).json(info);
