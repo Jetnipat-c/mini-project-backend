@@ -74,4 +74,19 @@ authRouter.get("/profile",passport.authenticate("jwt", { session: false }),
   }
 );
 
+authRouter.get("/logout", (req, res) => {
+  res.setHeader(
+    "Set-Cookie",
+    cookie.serialize("token", "", {
+      httpOnly: true,
+      secure: process.env.NODE_ENV !== "development",
+      maxAge: -1,
+      sameSite: "strict",
+      path: "/",
+    })
+  );
+  res.statusCode = 200;
+  return res.json({ message: "Logout successful" });
+});
+
 export default authRouter;
