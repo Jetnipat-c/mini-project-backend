@@ -4,12 +4,16 @@ import passport from "passport";
 import { Database } from "../database/database.js";
 import { env } from "../constants/environment.js";
 import "../public/passport.js";
+import { AuthenService } from "../services/AuthenService.js";
 import cookie from "cookie";
+import jwt from "jsonwebtoken";
+
 const authRouter = express.Router();
 const db = new Database();
+const authenService = new AuthenService();
 
 authRouter.use(express.urlencoded({ extended: false }));
-import jwt from "jsonwebtoken";
+
 authRouter.post("/login", (req, res, next) => {
   const { username, password } = req.body;
   console.log(username, password);
@@ -45,27 +49,8 @@ authRouter.post("/login", (req, res, next) => {
 });
 
 authRouter.post("/register", async (req, res, next) => {
-  const { username, password, email } = req.body;
-  if (!username || !password || !email) {
-    return res.status(500).json({ message: "กรุณากรอกข้อมูลให้ครบถ้วน" });
-  }
-
-  const user = await db.findOne({ username, email });
-  if (user) {
-    return res
-      .status(500)
-      .json({ message: "มีบัญชีผู้ใช้หรืออีเมลนี้อยู่ในระบบแล้ว" });
-  }
-
-  const raw = { username, password, email };
-  console.log("rew", raw);
-  const hash = await bcrypt.hash(password, env.SALT_ROUND);
-  console.log("hash", hash);
-  const data = { ...raw, password: hash };
-  console.log("data", data);
-  const createUser = await db.create(data);
-  console.log("createUser", createUser);
-  return res.status(200).json(createUser);
+  authenService.registUser(req,res)
+  
 });
 
 authRouter.get("/profile",passport.authenticate("jwt", { session: false }),
