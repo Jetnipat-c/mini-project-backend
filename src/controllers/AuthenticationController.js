@@ -12,7 +12,7 @@ authRouter.use(express.urlencoded({ extended: false }));
 import jwt from "jsonwebtoken";
 authRouter.post("/login", (req, res, next) => {
   const { username, password } = req.body;
-  console.log(username, password)
+  console.log(username, password);
   let time_exp;
   passport.authenticate("local", { session: false }, (err, user, info) => {
     console.log("Login: ", req.body, user, err, info);
@@ -26,7 +26,7 @@ authRouter.post("/login", (req, res, next) => {
       });
       var decoded = jwt.decode(token);
       let time = new Date(decoded.exp * 1000);
-      console.log("Before set cookie : ", token)
+      console.log("Before set cookie : ", token);
       res.setHeader(
         "Set-Cookie",
         cookie.serialize("token", token, {
@@ -37,7 +37,7 @@ authRouter.post("/login", (req, res, next) => {
           path: "/",
         })
       );
-      console.log("Affter set cookie : ")
+      console.log("Affter set cookie : ");
       res.statusCode = 200;
       return res.json({ user, token });
     } else return res.status(422).json(info);
@@ -67,5 +67,11 @@ authRouter.post("/register", async (req, res, next) => {
   console.log("createUser", createUser);
   return res.status(200).json(createUser);
 });
+
+authRouter.get("/profile",passport.authenticate("jwt", { session: false }),
+  (req, res, next) => {
+    res.send(req.user);
+  }
+);
 
 export default authRouter;
