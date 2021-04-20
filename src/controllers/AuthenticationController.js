@@ -16,10 +16,10 @@ authRouter.use(express.urlencoded({ extended: false }));
 
 authRouter.post("/login", (req, res, next) => {
   const { username, password } = req.body;
-  console.log(username, password);
+  //console.log(username, password);
   let time_exp;
   passport.authenticate("local", { session: false }, (err, user, info) => {
-    console.log("Login: ", req.body, user, err, info);
+    //console.log("Login: ", req.body, user, err, info);
     if (err) return next(err);
     if (user) {
       if (req.body.remember == true) {
@@ -30,7 +30,7 @@ authRouter.post("/login", (req, res, next) => {
       });
       var decoded = jwt.decode(token);
       let time = new Date(decoded.exp * 1000);
-      console.log("Before set cookie : ", token);
+      //console.log(time);
       res.setHeader(
         "Set-Cookie",
         cookie.serialize("token", token, {
@@ -41,7 +41,6 @@ authRouter.post("/login", (req, res, next) => {
           path: "/",
         })
       );
-      console.log("Affter set cookie : ");
       res.statusCode = 200;
       return res.json({ user, token });
     } else return res.status(422).json(info);
@@ -49,8 +48,7 @@ authRouter.post("/login", (req, res, next) => {
 });
 
 authRouter.post("/register", async (req, res, next) => {
-  authenService.registUser(req,res)
-  
+  authenService.registUser(req,res) 
 });
 
 authRouter.get("/profile",passport.authenticate("jwt", { session: false }),
@@ -73,5 +71,18 @@ authRouter.get("/logout", (req, res) => {
   res.statusCode = 200;
   return res.json({ message: "Logout successful" });
 });
+
+authRouter.get("/guest", async (req, res, next) => {
+  let username = Math.random().toString(36).substring(2);
+  //console.log("username: ", username);
+  let emailText = "@guest.mail";
+  let email = username.concat(emailText);
+  //console.log("email: ",email);
+  let password = "123456";
+  //console.log("password: ",password);
+  authenService.registGuestUser(username,email,password,res)
+  
+});
+
 
 export default authRouter;

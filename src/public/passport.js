@@ -41,7 +41,7 @@ passport.use(
     },
     async (jwtPayload, cb) => {
       try {
-        console.log(jwtPayload.username)
+        //console.log(jwtPayload.username)
         const index = await db.checkExistingUser(jwtPayload.username);
         if (index !== db.NOT_FOUND) {
           const { id, username, email } = user.users[index];

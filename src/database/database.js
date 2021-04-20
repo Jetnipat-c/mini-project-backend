@@ -62,14 +62,14 @@ export class Database {
   }
 
   async checkExistingUser(username) {
-    console.log(username);
+    //console.log(username);
     return user.users.findIndex((item) => item.username === username);
   }
 
   async isValidUser(username, password) {
-    console.log("isValidUser", username, password);
+    //console.log("isValidUser", username, password);
     const index = user.users.findIndex((item) => item.username === username);
-    console.log(index);
+    //console.log(index);
     if( index === -1) {
       return false
     }
@@ -84,7 +84,7 @@ export class Database {
     tranAmount
   ) => {
     const newId = await this.genarateTransactionID();
-    console.log(newId);
+    //console.log(newId);
     const newData = {
       userID: userID,
       tranDate: tranDate,
@@ -127,11 +127,11 @@ export class Database {
 
     const returnedTarget = Object.assign(result, newData);
 
-    console.log(transaction.transactions[tranID]);
+    //console.log(transaction.transactions[tranID]);
 
-    console.log(returnedTarget);
+    //console.log(returnedTarget);
 
-    console.log(result);
+    //console.log(result);
     return result;
   }
 }
