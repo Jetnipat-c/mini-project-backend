@@ -10,10 +10,10 @@ export let user = {
   ],
 };
 
-const types = {
-  REVENUE: "revenue",
-  EXPENDITURE: "expenditure",
-};
+// const types = {
+//   true: "revenue",
+//   false: "expenditure",
+// };
 
 export let transaction = {
   transactions: [
@@ -22,7 +22,7 @@ export let transaction = {
       userID: 1,
       tranDate: "4/19/2021",
       tranNote: "ซื้อแกงไตปลา",
-      tranType: types.EXPENDITURE,
+      tranType: true,
       tranAmount: 40,
     },
   ],
