@@ -25,6 +25,27 @@ export let transaction = {
       tranType: true,
       tranAmount: 40,
     },
+    {
+      userID: 2,
+      tranDate: "5/19/2021",
+      tranNote: "ขโมย",
+      tranType: false,
+      tranAmount: 900,
+    },
+    {
+      userID: 2,
+      tranDate: "5/19/2021",
+      tranNote: "ขโมย",
+      tranType: false,
+      tranAmount: 900,
+    },
+    {
+      userID: 2,
+      tranDate: "5/19/2021",
+      tranNote: "ขโมย",
+      tranType: false,
+      tranAmount: 900,
+    },
   ],
 };
 
@@ -142,19 +163,16 @@ export class Database {
       (item) => item.userID != parseInt(userID)
     );
     console.log("result ", result);
-    transaction.transactions = result
+    transaction.transactions = result;
     return transaction.transactions;
   }
 
   async getByuser(req) {
-    const { userID } = req;
-    console.log(userID);
+    console.log(req);
     const result = await transaction.transactions.filter(
-      (item) => item.userID === parseInt(userID)
+      (item) => item.userID == req
     );
     console.log("result ", result);
     return result;
   }
-
-
 }

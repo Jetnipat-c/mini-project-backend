@@ -16,8 +16,9 @@ transactionRouter.get("/getall", async (req,res,next) => {
     return res.json(transaction);
 })
 
-transactionRouter.get("/byuser", async (req,res,next) => {
-  let transaction = await db.getByuser(req.body);
+transactionRouter.get("/byuser/:id", async (req,res,next) => {
+  console.log("control : ",req.params.id);
+  let transaction = await db.getByuser(req.params.id);
   return res.json(transaction);
 })
 
