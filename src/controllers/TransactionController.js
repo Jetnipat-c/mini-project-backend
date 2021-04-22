@@ -16,10 +16,21 @@ transactionRouter.get("/getall", async (req,res,next) => {
     return res.json(transaction);
 })
 
+transactionRouter.get("/byuser/:userid", async (req,res,next) => {
+  let transaction = await db.getByuser(req.params);
+  return res.json(transaction);
+})
+
 
 transactionRouter.put("/update", async (req,res,next) => {
     let data = req.body
     let result = await db.findTransaction(data)
     return res.json(result)
+})
+
+transactionRouter.delete("/delete", async (req,res,next) => {
+  var userID =  req.body
+  let result = await db.deleteTransaction(req.body)
+  return res.json(result)
 })
 export default transactionRouter;

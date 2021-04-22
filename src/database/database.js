@@ -18,8 +18,8 @@ export let user = {
 export let transaction = {
   transactions: [
     {
-      tranID: 1,
       userID: 1,
+      tranID: 1,
       tranDate: "4/19/2021",
       tranNote: "ซื้อแกงไตปลา",
       tranType: true,
@@ -70,8 +70,8 @@ export class Database {
     //console.log("isValidUser", username, password);
     const index = user.users.findIndex((item) => item.username === username);
     //console.log(index);
-    if( index === -1) {
-      return false
+    if (index === -1) {
+      return false;
     }
     return await bcrypt.compare(password, user.users[index].password);
   }
@@ -134,4 +134,26 @@ export class Database {
     //console.log(result);
     return result;
   }
+
+  async deleteTransaction(req) {
+    const { userID } = req;
+    console.log(userID);
+    const result = await transaction.transactions.filter(
+      (item) => item.userID != parseInt(userID)
+    );
+    console.log("result ", result);
+    transaction.transactions = result
+    return transaction.transactions;
+  }
+
+  async getByuser(userID) {
+    console.log(userID);
+    const result = await transaction.transactions.filter(
+      (item) => item.userID != parseInt(userID)
+    );
+    console.log("result ", result);
+    return result;
+  }
+
+
 }
