@@ -146,10 +146,11 @@ export class Database {
     return transaction.transactions;
   }
 
-  async getByuser(userID) {
+  async getByuser(req) {
+    const { userID } = req;
     console.log(userID);
     const result = await transaction.transactions.filter(
-      (item) => item.userID != parseInt(userID)
+      (item) => item.userID === parseInt(userID)
     );
     console.log("result ", result);
     return result;
