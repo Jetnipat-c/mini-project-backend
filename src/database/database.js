@@ -27,6 +27,7 @@ export let transaction = {
     },
     {
       userID: 2,
+      tranID: 2,
       tranDate: "5/19/2021",
       tranNote: "ขโมย",
       tranType: false,
@@ -34,6 +35,7 @@ export let transaction = {
     },
     {
       userID: 2,
+      tranID: 3,
       tranDate: "5/19/2021",
       tranNote: "ขโมย",
       tranType: false,
@@ -41,6 +43,7 @@ export let transaction = {
     },
     {
       userID: 2,
+      tranID: 4,
       tranDate: "5/19/2021",
       tranNote: "ขโมย",
       tranType: false,
