@@ -137,26 +137,26 @@ export class Database {
 
   async findTransaction(data) {
     const { userID, tranDate, tranNote, tranType, tranAmount, tranID } = data;
-    const result = await transaction.transactions.find(
-      (item) => item.tranID === tranID
+    // const result = await transaction.transactions.find(
+    //   (item) => item.tranID === tranID
+    // );
+    // let newData = {
+    //   userID: userID,
+    //   tranDate: tranDate,
+    //   tranNote: tranNote,
+    //   tranType: tranType,
+    //   tranAmount: tranAmount,
+    //   tranID: tranID,
+    // };
+    // const returnedTarget = Object.assign(result, newData);
+    let id = await transaction.transactions.findIndex(
+      (item) => item.tranID == +tranID
     );
-    let newData = {
-      userID: userID,
-      tranDate: tranDate,
-      tranNote: tranNote,
-      tranType: tranType,
-      tranAmount: tranAmount,
-      tranID: tranID,
-    };
+    transaction.transactions[id].tranDate = tranDate;
+    transaction.transactions[id].tranNote = tranNote;
+    transaction.transactions[id].tranAmount = tranAmount;
 
-    const returnedTarget = Object.assign(result, newData);
-
-    //console.log(transaction.transactions[tranID]);
-
-    //console.log(returnedTarget);
-
-    //console.log(result);
-    return result;
+    return transaction.transactions[id];
   }
 
   async deleteTransaction(req) {
