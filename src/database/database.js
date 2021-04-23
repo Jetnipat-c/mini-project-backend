@@ -155,6 +155,7 @@ export class Database {
     transaction.transactions[id].tranDate = tranDate;
     transaction.transactions[id].tranNote = tranNote;
     transaction.transactions[id].tranAmount = tranAmount;
+    transaction.transactions[id].tranType = tranType;
 
     return transaction.transactions[id];
   }
