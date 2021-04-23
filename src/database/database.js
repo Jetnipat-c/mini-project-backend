@@ -171,6 +171,16 @@ export class Database {
     return transaction.transactions;
   }
 
+  async deleteTransactionByTranID(req) {
+    const { tranID } = req;
+    const result = await transaction.transactions.filter(
+      (item) => item.tranID != parseInt(tranID)
+    );
+    console.log("result ", result);
+    transaction.transactions = result;
+    return transaction.transactions;
+  }
+
   async getByuser(req) {
     console.log(req);
     const result = await transaction.transactions.filter(

@@ -34,4 +34,10 @@ transactionRouter.delete("/delete", async (req,res,next) => {
   let result = await db.deleteTransaction(req.body)
   return res.json(result)
 })
+
+transactionRouter.delete("/deletetran", async (req,res,next) => {
+  let result = await db.deleteTransactionByTranID(req.body)
+  return res.json(result)
+})
+
 export default transactionRouter;
