@@ -35,8 +35,8 @@ transactionRouter.delete("/delete", async (req,res,next) => {
   return res.json(result)
 })
 
-transactionRouter.delete("/deletetran", async (req,res,next) => {
-  let result = await db.deleteTransactionByTranID(req.body)
+transactionRouter.delete("/deletetran/:tranID", async (req,res,next) => {
+  let result = await db.deleteTransactionByTranID(req.params)
   return res.json(result)
 })
 
