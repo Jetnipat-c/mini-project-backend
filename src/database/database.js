@@ -25,30 +25,6 @@ export let transaction = {
       tranType: true,
       tranAmount: 40,
     },
-    {
-      userID: 2,
-      tranID: 2,
-      tranDate: "5/19/2021",
-      tranNote: "ขโมย",
-      tranType: false,
-      tranAmount: 900,
-    },
-    {
-      userID: 2,
-      tranID: 3,
-      tranDate: "5/19/2021",
-      tranNote: "ขโมย",
-      tranType: false,
-      tranAmount: 900,
-    },
-    {
-      userID: 2,
-      tranID: 4,
-      tranDate: "5/19/2021",
-      tranNote: "ขโมย",
-      tranType: false,
-      tranAmount: 900,
-    },
   ],
 };
 
