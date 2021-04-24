@@ -3,7 +3,7 @@
 ## Installation
 
 ```bash
-$ npm install or $ yarn
+$ npm install or yarn
 ```
 
 ## Running the app
