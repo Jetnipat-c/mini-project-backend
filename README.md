@@ -3,6 +3,8 @@
 ## Installation
 
 ```bash
+$ git clone https://github.com/Jetnipat-c/mini-project-backend.git
+$ cd mini-project-backend
 $ npm install or yarn
 ```
 
@@ -11,5 +13,4 @@ $ npm install or yarn
 ```bash
 # development
 $ nodemon index.js or yarn start
-
 ```
